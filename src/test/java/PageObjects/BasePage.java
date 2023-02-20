@@ -1,6 +1,7 @@
 package PageObjects;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -13,7 +14,7 @@ abstract class BasePage {
         return RestAssured.given()
                 .when()
                 .get(url)
-                .then()
+                .then().contentType(ContentType.HTML)
                 .extract()
                 .response();
 
