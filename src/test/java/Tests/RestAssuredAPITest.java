@@ -1,3 +1,5 @@
+package Tests;
+
 import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
@@ -12,6 +14,6 @@ public class RestAssuredAPITest {
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.request(Method.GET, "");
         System.out.println("Status received => " + response.getStatusLine());
-        System.out.println("Response=>" + response.prettyPrint());
+        //System.out.println("Response=>" + response.prettyPrint());
     }
 }
