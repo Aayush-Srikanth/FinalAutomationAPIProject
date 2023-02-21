@@ -2,9 +2,6 @@ package Tests;
 
 import PageObjects.CreateAccountPage;
 import PageObjects.HomePage;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CreateAccTest {
@@ -14,10 +11,11 @@ public class CreateAccTest {
     @Test
     public void Test2(){
         homePage.getHomePage();
-        Assertions.assertEquals(200, homePage.getStatusCode());
+        homePage.assertStatusCode(200);
     }
     @Test
     public void createNewAcc(){
         createAccountPage.createAcc();
+        createAccountPage.assertStatusCode(200);
     }
 }

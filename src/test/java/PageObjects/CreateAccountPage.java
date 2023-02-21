@@ -1,15 +1,11 @@
 package PageObjects;
 
-import io.restassured.RestAssured;
-import io.restassured.path.xml.XmlPath;
-import io.restassured.specification.RequestSpecification;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
 
 public class CreateAccountPage extends BasePage {
 
@@ -34,10 +30,9 @@ public class CreateAccountPage extends BasePage {
                 .formParams(formData)
                 .post();
 
-        Assertions.assertEquals(302, response.getStatusCode());
-        XmlPath xmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, getResponseBody());
-        String username = xmlPath.get("**.find {it.@class=='account'}.span").toString();
-        Assertions.assertEquals("Benjamin Button", username);
+        assertStatusCode(302);
+        getGpathFromXmlBody("**.find {it.@class=='account'}.span");
+        Assertions.assertEquals("Benjamin Button", pageElement);
 
     }
 }
