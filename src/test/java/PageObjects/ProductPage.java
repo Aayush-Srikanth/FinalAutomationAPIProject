@@ -1,4 +1,4 @@
 package PageObjects;
 
-public class ProductPage {
+public class ProductPage extends BasePage{
 }

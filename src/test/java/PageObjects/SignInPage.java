@@ -1,4 +1,4 @@
 package PageObjects;
 
-public class SignInPage {
+public class SignInPage extends BasePage {
 }
