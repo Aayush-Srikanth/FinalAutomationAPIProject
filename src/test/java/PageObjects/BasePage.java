@@ -9,7 +9,9 @@ import io.restassured.specification.RequestSpecification;
 abstract class BasePage {
 
     Response response;
+
     public String baseURL="http://3.11.77.136/index.php";
+ 
     public Response sendGetRequest(String url) {
         return RestAssured.given()
                 .when()
