@@ -34,6 +34,11 @@ abstract class BasePage {
 
     }
 
+    public void logResponseDetails() {
+        System.out.println("Status Code = " + getStatusCode());
+        System.out.println("Cookies = " + getCookies());
+    }
+
     public Cookies getCookies() {
         return response.getDetailedCookies();
     }
@@ -42,8 +47,10 @@ abstract class BasePage {
         return response.getStatusCode();
     }
 
-    public String getBodyResponse() {
-        return response.getBody().asString();
+    public String getResponseBody() {
+        sendGetRequest("");
+        return response.getBody().asPrettyString();
     }
+
 
 }

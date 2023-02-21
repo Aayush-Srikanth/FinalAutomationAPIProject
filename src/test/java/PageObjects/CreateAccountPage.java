@@ -1,10 +1,15 @@
 package PageObjects;
 
 import io.restassured.RestAssured;
+import io.restassured.path.xml.XmlPath;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class CreateAccountPage extends BasePage {
 
@@ -13,34 +18,26 @@ public class CreateAccountPage extends BasePage {
     public void createAcc() {
         //Base URI defined in Base Page
         //Passing the resource details
+
+        Map<String, Object> formData = new HashMap<>();
+        formData.put("id_gender", "1");
+        formData.put("firstname", "Benjamin");
+        formData.put("lastname", "Button");
+        formData.put("email", generateEmail + "@test.com");
+        formData.put("password", "wordpass");
+        formData.put("birthday", "12/06/1992");
+        formData.put("submitCreate", 1);
+
         response = httpRequest.filter(cookieFilter)
                 .queryParam("controller", "authentication")
-                .queryParam("create_account", "1").formParam("id_gender", "1")
-                .formParam("firstname", "Benjamin")
-                .formParam("lastname", "Button")
-                .formParam("email", generateEmail + "@test.com")
-                .formParam("password", "wordpass")
-                .formParam("birthday", "12/06/1992")
-                .formParam("submitCreate", 1).post("/");
-
-        System.out.println(response.getCookies());
-        System.out.println(cookieFilter);
+                .queryParam("create_account", "1")
+                .formParams(formData)
+                .post();
 
         Assertions.assertEquals(302, response.getStatusCode());
-        System.out.println("Status Code = " + response.getStatusCode());
-        response = sendGetRequest("");
-        System.out.println("Response Body = " + response.getBody().prettyPrint());
-        System.out.println(response.getCookies());
-        System.out.println(cookieFilter);
+        XmlPath xmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, getResponseBody());
+        String username = xmlPath.get("**.find {it.@class=='account'}.span").toString();
+        Assertions.assertEquals("Benjamin Button", username);
 
-//        //Retrieving the response body using getBody() method
-//        ResponseBody body = response.body();
-//        //Converting the response body to string object
-//        String rbdy = body.asString();
-//        //Creating object of XmlPath and passing the string response body as parameter
-//        XmlPath xmlPath = new XmlPath(rbdy);
-//        //Storing publisher name in a string variable
-//        String title =xmlPath.getString("title");
-//        System.out.println("The book title is - "+title);
     }
 }
