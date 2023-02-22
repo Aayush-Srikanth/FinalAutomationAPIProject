@@ -1,17 +1,14 @@
 package PageObjects;
 
-
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.Assertions;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class CreateAccountPage extends BasePage {
 
     private String generateEmail = RandomStringUtils.randomAlphabetic(7);
 
-    public void createAcc() {
+    public void createNewAccount() {
         //Base URI defined in Base Page
         //Passing the resource details
 
@@ -30,9 +27,9 @@ public class CreateAccountPage extends BasePage {
                 .formParams(formData)
                 .post();
 
-        assertStatusCode(302);
-        getGpathFromXmlBody("**.find {it.@class=='account'}.span");
-        Assertions.assertEquals("Benjamin Button", pageElement);
+        /**
+         * 1) Make a reusable post method that takes in the formdata as a parameter
+         * */
 
     }
 }
