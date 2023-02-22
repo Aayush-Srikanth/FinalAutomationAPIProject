@@ -3,7 +3,6 @@ package PageObjects;
 import io.restassured.RestAssured;
 import io.restassured.filter.cookie.CookieFilter;
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -15,51 +14,43 @@ abstract class BasePage {
     String pageElement;
     RequestSpecification httpRequest;
     private static final String BASE_URL = "http://3.11.77.136/index.php";
+    static CookieFilter cookieFilter = new CookieFilter();
 
     public BasePage() {
         RestAssured.baseURI = BASE_URL;
-        httpRequest = RestAssured.given();
+        httpRequest = RestAssured.given().filter(cookieFilter);
+    }
 
+    public void assertStatusCode(int statusCode) {
+        Assertions.assertEquals(statusCode, getStatusCode());
     }
-    public void assertStatusCode(int statusCode){
-        Assertions.assertEquals(statusCode, response.getStatusCode());
-    }
-    public String getGpathFromXmlBody(String gPath){
+
+    public String getGpathFromXmlBody(String gPath) {
         XmlPath xmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, getResponseBody());
         return pageElement = xmlPath.get(gPath).toString();
     }
-//    "**.find {it.@class=='account'}.span"
-    CookieFilter cookieFilter = new CookieFilter();
 
-    public Response sendGetRequest(String url) {
-        response = RestAssured.given()
+    //    "**.find {it.@class=='account'}.span"
+
+    public Response sendGetRequest(String endpoint) {
+        response = httpRequest
                 .filter(cookieFilter)
                 .when()
-                .get(url)
+                .get(endpoint)
                 .then().contentType(ContentType.HTML)
                 .extract()
                 .response();
         return response;
-
     }
 
-    public void logResponseDetails() {
-        System.out.println("Status Code = " + getStatusCode());
-        System.out.println("Cookies = " + getCookies());
-    }
-
-    public Cookies getCookies() {
-        return response.getDetailedCookies();
-    }
+    //public Response sendPostRequest()
 
     public int getStatusCode() {
         return response.getStatusCode();
     }
 
     public String getResponseBody() {
-        sendGetRequest("");
         return response.getBody().asPrettyString();
     }
-
 
 }

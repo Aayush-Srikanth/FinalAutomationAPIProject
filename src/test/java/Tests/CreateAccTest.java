@@ -2,20 +2,30 @@ package Tests;
 
 import PageObjects.CreateAccountPage;
 import PageObjects.HomePage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CreateAccTest {
 
-    HomePage homePage = new HomePage();
-    CreateAccountPage createAccountPage = new CreateAccountPage();
+    HomePage homePage;
+    CreateAccountPage createAccountPage;
+
+    public CreateAccTest() {
+        createAccountPage = new CreateAccountPage();
+        homePage = new HomePage();
+    }
+
     @Test
-    public void Test2(){
+    public void getHomepageTest() {
         homePage.getHomePage();
         homePage.assertStatusCode(200);
     }
+
     @Test
-    public void createNewAcc(){
-        createAccountPage.createAcc();
-        createAccountPage.assertStatusCode(200);
+    public void createNewAccountTest() {
+        createAccountPage.createNewAccount();
+        Assertions.assertEquals(302, createAccountPage.getStatusCode());
+        homePage.getHomePage();
+        Assertions.assertEquals("Benjamin Button", homePage.getLoggedInUsername());
     }
 }
