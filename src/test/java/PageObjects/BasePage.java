@@ -8,6 +8,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Map;
+
 abstract class BasePage {
 
     Response response;
@@ -43,7 +45,15 @@ abstract class BasePage {
         return response;
     }
 
-    //public Response sendPostRequest()
+    public Response sendPostRequest(String path, Map<String, Object> formParams,
+                                    Map<String, Object> queryParams){
+        response = httpRequest
+                .filter(cookieFilter)
+                .queryParams(queryParams)
+                .formParams(formParams)
+                .post(path);
+        return response;
+    }
 
     public int getStatusCode() {
         return response.getStatusCode();
