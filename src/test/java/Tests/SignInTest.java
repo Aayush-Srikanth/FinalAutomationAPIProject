@@ -1,21 +1,8 @@
 package Tests;
-
-
-import PageObjects.AccountPage;
-import PageObjects.HomePage;
-import PageObjects.SignInPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class SignInTest {
-    HomePage homePage;
-    SignInPage signInPage;
-    AccountPage accountPage;
-    public SignInTest() {
-        homePage = new HomePage();
-        signInPage = new SignInPage() ;
-        accountPage = new AccountPage();
-    }
+public class SignInTest extends BaseTest {
 
     @Test
     public void signInWithManualDetails(){
@@ -37,7 +24,7 @@ public class SignInTest {
     }
 
     @Test
-    public void accessMyAccountPageWithoutLoginIn(){
+    public void accessMyAccountPageWithoutLoginCredentials(){
         homePage.userLogout();
         homePage.assertStatusCode(200);
         accountPage.getAccountPage();

@@ -3,6 +3,7 @@ package PageObjects;
 import io.restassured.RestAssured;
 import io.restassured.filter.cookie.CookieFilter;
 import io.restassured.http.ContentType;
+import io.restassured.internal.RequestSpecificationImpl;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -17,10 +18,11 @@ abstract class BasePage {
     String pageElement;
     RequestSpecification httpRequest;
     private static final String BASE_URL = "http://3.11.77.136/index.php";
-    static CookieFilter cookieFilter = new CookieFilter();
+    public static CookieFilter cookieFilter;
 
     public BasePage() {
         RestAssured.baseURI = BASE_URL;
+        cookieFilter = new CookieFilter();
         httpRequest = RestAssured.given().filter(cookieFilter);
     }
 
@@ -64,6 +66,9 @@ abstract class BasePage {
                 .formParams(formParams)
                 .post(path);
         return response;
+    }
+    public void clearCookies(){
+        ((RequestSpecificationImpl) httpRequest).removeCookies();
     }
     public void userLogout(){
         response = sendGetRequest("?mylogout=");
