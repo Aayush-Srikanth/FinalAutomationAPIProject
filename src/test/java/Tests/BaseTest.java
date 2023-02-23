@@ -12,13 +12,15 @@ public class BaseTest {
     CartPage cartPage;
     ProductPage productPage;
     AccountPage accountPage;
+    CreateAccountPage createAccountPage;
 
     public BaseTest() {
-        homePage = new HomePage();
-        signInPage = new SignInPage();
-        cartPage = new CartPage();
-        productPage = new ProductPage();
         accountPage = new AccountPage();
+        cartPage = new CartPage();
+        createAccountPage = new CreateAccountPage();
+        homePage = new HomePage();
+        productPage = new ProductPage();
+        signInPage = new SignInPage();
     }
 
     @BeforeAll

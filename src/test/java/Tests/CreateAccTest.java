@@ -1,20 +1,8 @@
 package Tests;
-
-import PageObjects.CreateAccountPage;
-import PageObjects.HomePage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CreateAccTest {
-
-    HomePage homePage;
-    CreateAccountPage createAccountPage;
-
-    public CreateAccTest() {
-        createAccountPage = new CreateAccountPage();
-        homePage = new HomePage();
-    }
-
+public class CreateAccTest extends BaseTest{
     @Test
     public void createAccountTest() {
         createAccountPage.createAccount();
