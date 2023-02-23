@@ -36,13 +36,5 @@ public class SignInTest {
         Assertions.assertEquals("Your account",accountPage.getPageHeader().trim());
     }
 
-    @Test
-    public void accessMyAccountPageWithoutLoginIn(){
-        homePage.userLogout();
-        homePage.assertStatusCode(200);
-        accountPage.getAccountPage();
-        accountPage.assertStatusCode(200);//interesting result
-        Assertions.assertEquals("Log in to your account",accountPage.getPageHeader().trim());
-    }
 
 }

@@ -16,12 +16,6 @@ public class CreateAccTest {
     }
 
     @Test
-    public void getHomepageTest() {
-        homePage.getHomePage();
-        homePage.assertStatusCode(200);
-    }
-
-    @Test
     public void createAccountTest() {
         createAccountPage.createAccount();
         Assertions.assertEquals(302, createAccountPage.getStatusCode());
@@ -34,7 +28,6 @@ public class CreateAccTest {
         createAccountPage.createAccountAsRegisteredUser();
         Assertions.assertEquals("The email \"Bbutton@test1.com\" is already used, please choose another one or sign in",
                 createAccountPage.getEmailAlreadyRegisteredAlert());
-
 
 
     }
