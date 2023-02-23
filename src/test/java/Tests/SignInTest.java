@@ -8,9 +8,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class SignInTest {
-    HomePage homePage = new HomePage();
-    SignInPage signInPage = new SignInPage() ;
-    AccountPage accountPage = new AccountPage();
+    HomePage homePage;
+    SignInPage signInPage;
+    AccountPage accountPage;
+    public SignInTest() {
+        homePage = new HomePage();
+        signInPage = new SignInPage() ;
+        accountPage = new AccountPage();
+    }
 
     @Test
     public void signInWithManualDetails(){
@@ -19,7 +24,7 @@ public class SignInTest {
         homePage.getHomePage();
         Assertions.assertEquals("ben button", homePage.getLoggedInUsername());
         accountPage.getAccountPage();
-        Assertions.assertEquals("Your account",accountPage.getAccountHeader().trim());
+        Assertions.assertEquals("Your account",accountPage.getPageHeader().trim());
     }
     @Test
     public void signInWithNewAccountDetails(){
@@ -28,7 +33,16 @@ public class SignInTest {
         homePage.getHomePage();
         Assertions.assertEquals("Benjamin Button", homePage.getLoggedInUsername());
         accountPage.getAccountPage();
-        Assertions.assertEquals("Your account",accountPage.getAccountHeader().trim());
+        Assertions.assertEquals("Your account",accountPage.getPageHeader().trim());
+    }
+
+    @Test
+    public void accessMyAccountPageWithoutLoginIn(){
+        homePage.userLogout();
+        homePage.assertStatusCode(200);
+        accountPage.getAccountPage();
+        accountPage.assertStatusCode(200);//interesting result
+        Assertions.assertEquals("Log in to your account",accountPage.getPageHeader().trim());
     }
 
 }

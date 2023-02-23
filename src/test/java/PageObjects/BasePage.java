@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.HashMap;
+
 import java.util.Map;
 
 abstract class BasePage {
@@ -65,7 +65,12 @@ abstract class BasePage {
                 .post(path);
         return response;
     }
-
+    public void userLogout(){
+        response = sendGetRequest("?mylogout=");
+    }
+    public String getPageHeader(){
+        return getGpathFromXmlBody("**.find {it.@class=='page-header'}.h1");
+    }
     public int getStatusCode() {
         return response.getStatusCode();
     }
