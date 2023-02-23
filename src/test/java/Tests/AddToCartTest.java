@@ -1,24 +1,8 @@
 package Tests;
-
-import PageObjects.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class AddToCartTest {
-
-    HomePage homePage;
-    SignInPage signInPage;
-    CartPage cartPage;
-    ProductPage productPage;
-
-    public AddToCartTest() {
-        homePage = new HomePage();
-        signInPage = new SignInPage();
-        cartPage = new CartPage();
-        productPage = new ProductPage();
-    }
-
-
+public class AddToCartTest extends BaseTest{
     @Test
     public void addToCartUserSignedIn() {
         homePage.getHomePage();

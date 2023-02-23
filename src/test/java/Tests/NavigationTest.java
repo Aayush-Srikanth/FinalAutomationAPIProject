@@ -1,20 +1,8 @@
 package Tests;
-
-import PageObjects.AccountPage;
-import PageObjects.HomePage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class NavigationTest {
-
-    HomePage homePage;
-    AccountPage accountPage;
-
-    public NavigationTest() {
-        homePage = new HomePage();
-        accountPage = new AccountPage();
-    }
-
+public class NavigationTest extends BaseTest{
     @Test
     public void getHomepageTest() {
         homePage.getHomePage();
