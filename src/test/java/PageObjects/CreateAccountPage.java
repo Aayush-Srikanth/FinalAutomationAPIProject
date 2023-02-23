@@ -7,10 +7,9 @@ import java.util.Map;
 
 public class CreateAccountPage extends BasePage {
 
-    private String generateEmail = RandomStringUtils.randomAlphabetic(7);
+    String generateEmail = RandomStringUtils.randomAlphabetic(7);
 
     public void createNewAccount() {
-
         Map<String, Object> formData = new HashMap<>();
         formData.put("id_gender", "1");
         formData.put("firstname", "Benjamin");
@@ -26,16 +25,6 @@ public class CreateAccountPage extends BasePage {
 
         sendPostRequest("", formData, queryParams );
 
-        /*response = httpRequest
-                .filter(cookieFilter)
-                .queryParam("controller", "authentication")
-                .queryParam("create_account", "1")
-                .formParams(formData)
-                .post();*/
-
-        /**
-         * 1) Make a reusable post method that takes in the formdata as a parameter
-         * */
 
     }
 }

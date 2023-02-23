@@ -21,4 +21,14 @@ public class SignInTest {
         accountPage.getAccountPage();
         Assertions.assertEquals("Your account",accountPage.getAccountHeader().trim());
     }
+    @Test
+    public void signInWithNewAccountDetails(){
+        signInPage.signInWithNewAccDetails();
+        signInPage.assertStatusCode(302);
+        homePage.getHomePage();
+        Assertions.assertEquals("Benjamin Button", homePage.getLoggedInUsername());
+        accountPage.getAccountPage();
+        Assertions.assertEquals("Your account",accountPage.getAccountHeader().trim());
+    }
+
 }
