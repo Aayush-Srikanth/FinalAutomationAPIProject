@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 abstract class BasePage {
@@ -29,7 +30,8 @@ abstract class BasePage {
 
     public String getGpathFromXmlBody(String gPath) {
         XmlPath xmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, getResponseBody());
-        return pageElement = xmlPath.get(gPath).toString();
+        pageElement = xmlPath.get(gPath).toString();
+        return pageElement;
     }
 
     //    "**.find {it.@class=='account'}.span"
@@ -45,8 +47,17 @@ abstract class BasePage {
         return response;
     }
 
+    public Response sendGetRequest(String path,
+                                   Map<String, Object> queryParams) {
+        response = httpRequest
+                .filter(cookieFilter)
+                .queryParams(queryParams)
+                .get(path);
+        return response;
+    }
+
     public Response sendPostRequest(String path, Map<String, Object> formParams,
-                                    Map<String, Object> queryParams){
+                                    Map<String, Object> queryParams) {
         response = httpRequest
                 .filter(cookieFilter)
                 .queryParams(queryParams)
